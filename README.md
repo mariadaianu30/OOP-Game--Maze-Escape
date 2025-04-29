@@ -64,11 +64,11 @@ Fonturi selectate din Google Fonts:
 [Link colecție fonturi](https://fonts.google.com/share?selection.family=Caesar+Dressing|EB+Garamond|Host+Grotesk|Lato|Monsieur+La+Doulaise|Play|Playfair+Display|Raleway|WindSong)
 
 ###  Tutoriale care au inspirat dezvoltarea
-- [Intro Raylib – Începe un joc simplu](https://youtu.be/ioUl1M77hww)  
-- [Raylib Game Dev Basics](https://youtu.be/LGqsnM_WEK4)  
-- [Tilemaps și animații](https://www.youtube.com/watch?v=q5Y5u1c7qR0)  
-- [Coliziuni în Raylib](https://www.youtube.com/watch?v=0Ct9ZWEUm7M)  
-- [Logică pentru jocuri cu labirint](https://www.youtube.com/watch?v=UiZGTIYld1M&t=171s)  
-- [Proiect complet – Game dev cu Raylib](https://www.youtube.com/watch?v=RGzj-PF7D74&t=1063s)
+- https://youtu.be/ioUl1M77hww
+- https://youtu.be/LGqsnM_WEK4
+- https://www.youtube.com/watch?v=q5Y5u1c7qR0  
+- https://www.youtube.com/watch?v=0Ct9ZWEUm7M  
+- https://www.youtube.com/watch?v=UiZGTIYld1M&t=171s  
+- https://www.youtube.com/watch?v=RGzj-PF7D74&t=1063s
 
 
