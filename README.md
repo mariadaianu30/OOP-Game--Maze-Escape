@@ -49,15 +49,15 @@ Pare simplu… până când labirintul începe să ți se împotrivească!
 > Ratezi oricare pas… și labirintul te revendică pentru totdeauna. 
 
 #  Bibliografie:
--https://pin.it/JrWoYlipY
--https://www.vecteezy.com/vector-art/22908198-pixel-shrubs-or-bushes-with-greenery-and-foliage
--https://pin.it/1P9E2WWXt
--https://pin.it/5u4tMUkea
--https://pin.it/7w6KbI9BY
--https://fonts.google.com/share?-selection.family=Caesar+Dressing|EB+Garamond:ital,wght@0,400..800;1,400..800|Host+Grotesk:ital,wght@0,300..800;1,300..800|Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900|Monsieur+La+Doulaise|Play:wght@400;700|Playfair+Display:ital,wght@0,400..900;1,400..900|Raleway:ital,wght@0,100..900;1,100..900|WindSong:wght@400;500
--https://youtu.be/ioUl1M77hww?feature=shared
--https://youtu.be/LGqsnM_WEK4?feature=shared
--https://www.youtube.com/watch?v=q5Y5u1c7qR0
--https://www.youtube.com/watch?v=0Ct9ZWEUm7M
--https://www.youtube.com/watch?v=UiZGTIYld1M&t=171s
--https://www.youtube.com/watch?v=RGzj-PF7D74&t=1063s
+>https://pin.it/JrWoYlipY
+>https://www.vecteezy.com/vector-art/22908198-pixel-shrubs-or-bushes-with-greenery-and-foliage
+>https://pin.it/1P9E2WWXt
+>https://pin.it/5u4tMUkea
+>https://pin.it/7w6KbI9BY
+>https://fonts.google.com/share?-selection.family=Caesar+Dressing|EB+Garamond:ital,wght@0,400..800;1,400..800|Host+Grotesk:ital,wght@0,300..800;1,300..800|Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900|Monsieur+La+Doulaise|Play:wght@400;700|Playfair+Display:ital,wght@0,400..900;1,400..900|Raleway:ital,wght@0,100..900;1,100..900|WindSong:wght@400;500
+>https://youtu.be/ioUl1M77hww?feature=shared
+>https://youtu.be/LGqsnM_WEK4?feature=shared
+>https://www.youtube.com/watch?v=q5Y5u1c7qR0
+>https://www.youtube.com/watch?v=0Ct9ZWEUm7M
+>https://www.youtube.com/watch?v=UiZGTIYld1M&t=171s
+>https://www.youtube.com/watch?v=RGzj-PF7D74&t=1063s
