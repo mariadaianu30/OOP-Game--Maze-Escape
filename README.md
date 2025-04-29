@@ -60,8 +60,7 @@ Pare simplu… până când labirintul începe să ți se împotrivească!
   - https://pin.it/7w6KbI9BY  
 
 ###  Fonturi folosite
-Fonturi selectate din Google Fonts:  
-[Link colecție fonturi](https://fonts.google.com/share?selection.family=Caesar+Dressing|EB+Garamond|Host+Grotesk|Lato|Monsieur+La+Doulaise|Play|Playfair+Display|Raleway|WindSong)
+https://fonts.google.com/share?selection.family=Caesar+Dressing|EB+Garamond|Host+Grotesk|Lato|Monsieur+La+Doulaise|Play|Playfair+Display|Raleway|WindSong
 
 ###  Tutoriale care au inspirat dezvoltarea
 - https://youtu.be/ioUl1M77hww
