@@ -51,9 +51,7 @@ Pare simplu… până când labirintul începe să ți se împotrivească!
 ##  Bibliografie & Resurse
 
 ###  Elemente grafice și inspirație
-- Pixel-art bush pack:  
-  [Vecteezy – Pixel Shrubs & Bushes](https://www.vecteezy.com/vector-art/22908198-pixel-shrubs-or-bushes-with-greenery-and-foliage)
-- Stiluri și referințe vizuale (Pinterest):  
+  -https://www.vecteezy.com/vector-art/22908198-pixel-shrubs-or-bushes-with-greenery-and-foliage
   - https://pin.it/JrWoYlipY  
   - https://pin.it/1P9E2WWXt  
   - https://pin.it/5u4tMUkea  
