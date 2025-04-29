@@ -23,15 +23,21 @@ void LabyrinthRoom::generateLayout()
 			roomLayout[i][j] = 3;			///initializing the exit  with 3s, i choose to initialize a whole 2x2 square to be sure that whatever the generation of the maze is, the player can exit the maze
 
 	for (int i = 0; i < cellCount; i++)
-	{
-		for (int j = 0; j < 4; j++)
+{
+	for (int j = 0; j < 4; j++)
 
-			roomLayout[i][j] = 0;
+		roomLayout[i][j] = 0;
+
+}
+
+generateMaze(1, 5);						///we call the generate maze function
+
+for (int i = 0; i < cellCount; i++)
+{
+	for (int j = 0; j < 4; j++)
+
 		roomLayout[i][4] = 1;				///make sure that the wall above the player start position doesn't have any gaps
-	}
-
-	generateMaze(1, 5);						///we call the generate maze function
-
+}
 }
 
 bool LabyrinthRoom::inRange(int x, int y)
