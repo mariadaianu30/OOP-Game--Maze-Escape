@@ -1,7 +1,12 @@
-///D�ianu Maria-Iuliana
+///Dãianu Maria-Iuliana
 ///Grupa 132
 /// An Universitar 2024-2025
-
+/*  Instrucțiuni rapide de joc
+	1)  Meniu: treci cursorul peste căsuța de text, scrie-ți numele și apasă Enter.
+	2)  Labirint: mișcă-te cu săgețile ↑↓←→ sau cu tastele A-W-S-D.
+	3)  Adună toate diamantele și găsește ieșirea înainte să expire cele 150 de secunde.
+	Succes la evadare!
+*/
 
 #include <iostream>
 #include<cstring>
@@ -147,9 +152,9 @@ int main()
 		InitWindow(640, 200, "Critical Error");
 		BeginDrawing();
 		ClearBackground(BLACK);
-		DrawText(e.what(), 20, 80, 20, RED);   // mesaj din excep�ie
+		DrawText(e.what(), 20, 80, 20, RED);   // mesaj din excepþie
 		EndDrawing();
-		WaitTime(4.0);    // men�ine 4 secunde c�t s� cite�ti
+		WaitTime(4.0);    // menþine 4 secunde cât sã citeºti
 		CloseWindow();
 	}
 }
