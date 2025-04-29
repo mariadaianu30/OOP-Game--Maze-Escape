@@ -1,7 +1,7 @@
 # OOP-Game--Maze-Escape
 Maze Escape C++ Game with Raylib Graphic Interface
 
-# 🌀 Maze Escape / Evadare din Labirint
+# Maze Escape / Evadare din Labirint
 
 
 ## English
@@ -44,6 +44,6 @@ Pare simplu… până când labirintul începe să ți se împotrivească!
 - **Pauză** `Esc`  
 - **Restart nivel** `R`
 
-### 💎  Condiție de Victorie
+###   Condiție de Victorie
 > **Toate diamantele strânse** **ȘI** **ieșirea atinsă** **în 150 s**  
-> Ratezi oricare pas… și labirintul te revendică pentru totdeauna. 😈
+> Ratezi oricare pas… și labirintul te revendică pentru totdeauna. 
