@@ -1,0 +1,24 @@
+﻿  132_Daianu_Maria_Iuliana_OOP_Project.cpp
+C:\Users\maria\source\repos\132_Daianu_Maria_Iuliana_OOP_Project\132_Daianu_Maria_Iuliana_OOP_Project\132_Daianu_Maria_Iuliana_OOP_Project.cpp(127,31): warning C4101: 'e': unreferenced local variable
+  diamond.cpp
+C:\Users\maria\source\repos\132_Daianu_Maria_Iuliana_OOP_Project\132_Daianu_Maria_Iuliana_OOP_Project\diamond.cpp(46,23): warning C4244: '=': conversion from 'const int' to 'float', possible loss of data
+C:\Users\maria\source\repos\132_Daianu_Maria_Iuliana_OOP_Project\132_Daianu_Maria_Iuliana_OOP_Project\diamond.cpp(47,23): warning C4244: '=': conversion from 'const int' to 'float', possible loss of data
+  labyrinthRoom.cpp
+  menuRoom.cpp
+C:\Users\maria\source\repos\132_Daianu_Maria_Iuliana_OOP_Project\132_Daianu_Maria_Iuliana_OOP_Project\menuRoom.cpp(4,44): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\maria\source\repos\132_Daianu_Maria_Iuliana_OOP_Project\132_Daianu_Maria_Iuliana_OOP_Project\menuRoom.cpp(4,92): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\maria\source\repos\132_Daianu_Maria_Iuliana_OOP_Project\132_Daianu_Maria_Iuliana_OOP_Project\menuRoom.cpp(38,50): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\maria\source\repos\132_Daianu_Maria_Iuliana_OOP_Project\132_Daianu_Maria_Iuliana_OOP_Project\menuRoom.cpp(38,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  player.cpp
+C:\Users\maria\source\repos\132_Daianu_Maria_Iuliana_OOP_Project\132_Daianu_Maria_Iuliana_OOP_Project\player.cpp(8,15): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\maria\source\repos\132_Daianu_Maria_Iuliana_OOP_Project\132_Daianu_Maria_Iuliana_OOP_Project\player.cpp(9,15): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\maria\source\repos\132_Daianu_Maria_Iuliana_OOP_Project\132_Daianu_Maria_Iuliana_OOP_Project\player.cpp(57,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\maria\source\repos\132_Daianu_Maria_Iuliana_OOP_Project\132_Daianu_Maria_Iuliana_OOP_Project\player.cpp(58,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\maria\source\repos\132_Daianu_Maria_Iuliana_OOP_Project\132_Daianu_Maria_Iuliana_OOP_Project\player.cpp(64,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\maria\source\repos\132_Daianu_Maria_Iuliana_OOP_Project\132_Daianu_Maria_Iuliana_OOP_Project\player.cpp(65,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\maria\source\repos\132_Daianu_Maria_Iuliana_OOP_Project\132_Daianu_Maria_Iuliana_OOP_Project\player.cpp(79,52): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+C:\Users\maria\source\repos\132_Daianu_Maria_Iuliana_OOP_Project\132_Daianu_Maria_Iuliana_OOP_Project\player.cpp(79,40): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+  Generating Code...
+  132_Daianu_Maria_Iuliana_OOP_Project.vcxproj -> C:\Users\maria\source\repos\132_Daianu_Maria_Iuliana_OOP_Project\x64\Debug\132_Daianu_Maria_Iuliana_OOP_Project.exe
+  'pwsh.exe' is not recognized as an internal or external command,
+  operable program or batch file.
