@@ -8,6 +8,8 @@ Obstacle::Obstacle(const std::vector<std::vector<int>>& maze)
 			if (maze[j][i] == 6)
 				obstacles.push_back({ i,j });
 	totalObstacles = (int)obstacles.size();
+
+	texIdx.resize(obstacles.size());
 }
 
 Obstacle::~Obstacle()
@@ -16,30 +18,36 @@ Obstacle::~Obstacle()
 }
 void Obstacle::Load()
 {
-	texture = safeLoadTexture("Graphics/Obstacle.png");
+	const char* files[] = {
+		"Graphics/obstacle.png",
+		"Graphics/bush.png",
+	};
+	for (const char* p : files)
+		textures.push_back(safeLoadTexture(p));
+
+
+	std::mt19937 rng{ std::random_device{}() };
+	std::uniform_int_distribution<int> dist(0, (int)textures.size() - 1);
+	for (int& idx : texIdx)
+		idx = dist(rng);
 }
 void Obstacle::DrawObject()
 {
-	const float scale = 1.0f;
-	for (const auto& Obstacle : obstacles)
+	const float scale = 1.2f;
+	for (size_t i = 0; i < obstacles.size(); ++i)
 	{
-		position.x = Obstacle.x;
-		position.y = Obstacle.y;
+		const Cell& c = obstacles[i];
+		texture = textures[texIdx[i]];
 
+		float px = c.x * cellsize + cellsize / 2.0f;
+		float py = c.y * cellsize + cellsize / 2.0f;
+		float size = cellsize * scale;
 
-		const float px = position.x * cellsize + cellsize / 2.0f;
-		const float py = position.y * cellsize + cellsize / 2.0f;
-
-		const float size = cellsize * scale;
-
-		///the DrawTexturePro method ensures that the object is centered correctly in it's cell
-
-
-		Rectangle src = { 0, 0, (float)texture.width, (float)texture.height };		///the src rectangle is based on the initial dimensions of the texture
+		Rectangle src = { 0, 0, (float)texture.width, (float)texture.height };
 		Rectangle dest = { px, py, size, size };
-		Vector2   origin = { size / 2.0f, size / 2.0f };
+		Vector2   org = { size / 2.0f, size / 2.0f };
 
-		DrawTexturePro(texture, src, dest, origin, 0.0f, WHITE);
-
+		DrawTexturePro(texture, src, dest, org, 0.0f, WHITE);
 	}
 }
+

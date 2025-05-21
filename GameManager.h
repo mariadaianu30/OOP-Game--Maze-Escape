@@ -11,6 +11,7 @@
 #include "notEscaped.h"
 #include "chestRoom.h"
 #include "chest.h"
+#include "obstacle.h"
 
 
 class GameManager {
@@ -22,7 +23,7 @@ private:
 	void HandleLose();
 	void HandleTreasure();
 
-	static constexpr float TIME_LIMIT = 10.f;
+	static constexpr float TIME_LIMIT = 1.f;
 	GameScreen currentScreen = GameScreen::MENU;
 	GameScreen lastScreen = GameScreen::MENU;
 	float playTime = 0.f;
@@ -39,7 +40,12 @@ private:
 	WinRoom myWinRoom;
 	ChestRoom myChestRoom;
 	Chest myChest;
+	Obstacle myObstacle;
 	bool wantExit = false;
+	float delta = GetFrameTime();
+	static constexpr float CHEST_LIMIT = 50.f;
+	float chestTimeLeft = CHEST_LIMIT;
+
 public:
 	GameManager();
 	~GameManager();

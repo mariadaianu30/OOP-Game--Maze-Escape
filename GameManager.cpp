@@ -8,13 +8,15 @@ myLoseRoom("Graphics/background.jpg", "Graphics/font.ttf"),
 myWinRoom("Graphics/background.jpg", "Graphics/font.ttf"),
 myPlayerRoom("Graphics/background.jpg", "Graphics/font.ttf"),
 myChestRoom(),
-myChest(myChestRoom.getRoomLayout())
+myChest(myChestRoom.getRoomLayout()),
+myObstacle(myChestRoom.getRoomLayout())
 {
 	myLab.Load("Graphics/dirt1.png", "Graphics/bush.png", "Graphics/font.ttf");
 	myChestRoom.Load("Graphics/dirt1.png", "Graphics/bush.png", "Graphics/font.ttf");
 	myDiamond.Load();
 	myCoin.Load();
 	myChest.Load();
+	myObstacle.Load();
 }
 
 GameManager::~GameManager()
@@ -77,10 +79,20 @@ void GameManager::DrawGame()
 		myPlayer->DrawObject();
 		myChest.DrawObject();
 		myObstacle.DrawObject();
+		DrawText(TextFormat("Player Name:  %s", myMenu.getPlayerName()), 40, 60, 25, RAYWHITE);
+
+		for (int i = 0; i < myPlayer->getLives(); ++i)
+		{
+			Rectangle src = { 0, 0, static_cast<float>(heart.width), static_cast<float>(heart.height) };
+			Rectangle dest = { (35 - i) * 20, 7, 50, 50 };
+			DrawTexturePro(heart, src, dest, { 0, 0 }, 0.0f, WHITE);
+		}
+		DrawText(TextFormat("Time: %.0f", std::ceil(chestTimeLeft)), 750, 20, 25, RAYWHITE);
 		break;
 	case GameScreen::LOSE:
 		myLoseRoom.Draw();
 		DrawText(TextFormat("You have %d hearts left!", myPlayer->getLives()), 280, 350, 30, RAYWHITE);
+		DrawText(TextFormat("Coins:%d", myPlayer->getCoin()), 570, 60, 25, RAYWHITE);
 		for (int i = 0; i < myPlayer->getLives(); ++i)
 		{
 			Rectangle src = { 0, 0, static_cast<float>(heart.width), static_cast<float>(heart.height) };
@@ -119,7 +131,7 @@ void GameManager::HandlePlayerSelect()
 	if (myPlayerRoom.startGame())
 	{
 		currentScreen = GameScreen::MAZE;
-		myPlayer = new Player(1, 5, myPlayerRoom.getCharacter(), &myDiamond, &myCoin, &myChest, 3, 100);
+		myPlayer = new Player(1, 5, myPlayerRoom.getCharacter(), &myDiamond, &myCoin, &myChest, &myObstacle, 3, 100, chestTimeLeft);
 	}
 }
 
@@ -186,7 +198,13 @@ void GameManager::HandleMaze()
 
 }
 void GameManager::HandleTreasure() {
+	chestTimeLeft = std::max(0.f, chestTimeLeft - GetFrameTime());
 	myPlayer->UpdateObject(myChestRoom.getRoomLayout());
+	myChestRoom.Update(myPlayer);
+	if (chestTimeLeft <= 0.f || myPlayer->lifeLost())
+	{
+		currentScreen = GameScreen::LOSE;
+	}
 }
 
 void GameManager::ResetGame()
@@ -201,10 +219,15 @@ void GameManager::ResetGame()
 	myCoin = Coin(myLab.getRoomLayout());
 	myDiamond.Load();
 	myCoin.Load();
-
+	myChestRoom.Regenerate();
+	myChest = Chest(myChestRoom.getRoomLayout());
+	myObstacle = Obstacle(myChestRoom.getRoomLayout());
+	myChest.Load();
+	myObstacle.Load();
 
 	int oldLives = myPlayer->getLives();
 	int oldCoins = myPlayer->getCoin();
 	delete myPlayer;
-	myPlayer = new Player(1, 5, myPlayerRoom.getCharacter(), &myDiamond, &myCoin, &myChest, oldLives, oldCoins);
+	chestTimeLeft = CHEST_LIMIT;
+	myPlayer = new Player(1, 5, myPlayerRoom.getCharacter(), &myDiamond, &myCoin, &myChest, &myObstacle, oldLives, oldCoins, chestTimeLeft);
 }

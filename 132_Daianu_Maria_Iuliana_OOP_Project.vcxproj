@@ -132,6 +132,7 @@
     <ClCompile Include="chestRoom.cpp" />
     <ClCompile Include="coin.cpp" />
     <ClCompile Include="diamond.cpp" />
+    <ClCompile Include="enemy.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="labyrinthRoom.cpp" />
     <ClCompile Include="loseRoom.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="chestRoom.h" />
     <ClInclude Include="coin.h" />
     <ClInclude Include="diamond.h" />
+    <ClInclude Include="enemy.h" />
     <ClInclude Include="fileLoad.h" />
     <ClInclude Include="gameException.h" />
     <ClInclude Include="GameManager.h" />

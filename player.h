@@ -10,6 +10,7 @@
 #include "resources.h"	
 #include "coin.h"
 #include "chest.h"
+#include "obstacle.h"
 
 class Diamond;
 class Player : public Object
@@ -23,14 +24,17 @@ protected:
 	std::vector <std::vector<int>>coinsCollected;
 	Coin* coinSystem;
 	int lives;
-
+	int coins;
 	Chest* chestSystem;
 	std::vector <std::vector<int>>chestsCollected;
-	int coins;
+	Obstacle* obstacleSystem;
+	std::vector < std::vector<int>>obstaclesCollisioned;
+	float& timeLeft;
+
 
 
 public:
-	Player(int col, int row, const char* characterPath, Diamond* d, Coin* c, Chest* ch, int existingLives, int existingCoins);
+	Player(int col, int row, const char* characterPath, Diamond* d, Coin* c, Chest* ch, Obstacle* o, int existingLives, int existingCoins, float& levelTimer);
 	~Player();
 	void UpdateObject(const std::vector < std::vector<int>>& maze) override;
 	void DrawObject() override;
@@ -46,4 +50,7 @@ public:
 	void buyLife();
 	int getLives() { return lives; };
 	bool inBounds(int x, int y);
+	float getXplayer() { return position.x; };
+	float getYplayer() { return  position.y; };
+
 };

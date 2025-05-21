@@ -1,7 +1,7 @@
 ﻿#include "player.h"
 
 
-Player::Player(int col, int row, const char* characterPath, Diamond* d, Coin* c, Chest* ch, int existingLives, int existingCoins) :diamondSystem(d), coinSystem(c), chestSystem(ch)
+Player::Player(int col, int row, const char* characterPath, Diamond* d, Coin* c, Chest* ch, Obstacle* o, int existingLives, int existingCoins, float& levelTimer) :diamondSystem(d), coinSystem(c), chestSystem(ch), obstacleSystem(o), timeLeft(levelTimer)
 {
 
 	texture = safeLoadTexture(characterPath);
@@ -11,6 +11,7 @@ Player::Player(int col, int row, const char* characterPath, Diamond* d, Coin* c,
 	diamondsCollected.resize(35, std::vector<int>(35, 0));
 	coinsCollected.resize(35, std::vector<int>(35, 0));
 	chestsCollected.resize(35, std::vector<int>(35, 0));
+	obstaclesCollisioned.resize(35, std::vector<int>(35, 0));
 	lives = existingLives;
 	coins = existingCoins;
 
@@ -38,7 +39,7 @@ void Player::DrawObject()
 	DrawTexturePro(texture, src, dest, origin, 0.0f, WHITE);
 
 }
-bool	Player::inBounds(int x, int y)
+bool Player::inBounds(int x, int y)
 {
 	return (x >= 1 && x < cellcount - 1 && y >= 5 && y < cellcount - 1);
 }
@@ -65,10 +66,14 @@ void Player::UpdateObject(const std::vector < std::vector<int>>& maze)
 
 
 
-	if (inBounds(newCol, newRow) && maze[newCol][newRow] != 1)
+	if (inBounds(newCol, newRow) && maze[newCol][newRow] != 1 && maze[newRow][newCol] != 6)
 	{
 		position.x = newCol;
 		position.y = newRow;
+	}
+	if (inBounds(newCol, newRow) && maze[newRow][newCol] == 6)
+	{
+		timeLeft = std::max(0.0f, timeLeft - 10.0f);
 	}
 	if (inBounds(newCol, newRow) && maze[newRow][newCol] == 2 && diamondsCollected[newRow][newCol] == 0)
 	{
@@ -89,6 +94,7 @@ void Player::UpdateObject(const std::vector < std::vector<int>>& maze)
 		chestsCollected[newRow][newCol] = 1;
 		chestSystem->CollectChestAt(newCol, newRow);
 	}
+
 }
 
 
