@@ -56,6 +56,7 @@ public:
 	void loseLife();
 	bool lifeLost();
 	void buyLife();
+
 	int getLives() { return lives; };
 	bool inBounds(int x, int y);
 	float getXplayer() { return position.x; };

@@ -185,8 +185,11 @@ void GameManager::HandleMaze()
 	///handling the win of the player by stopping the timer and setting the currentscreen to the win room
 	if (myPlayer->hasWonMaze(myLab, myDiamond))
 	{
+		int oldLives = myPlayer->getLives();
+		int oldCoins = myPlayer->getCoin();
 		delete myPlayer;
-		myPlayer = nullptr;
+		chestTimeLeft = CHEST_LIMIT;
+		myPlayer = new Player(1, 5, myPlayerRoom.getCharacter(), &myDiamond, &myCoin, &myChest, &myObstacle, oldLives, oldCoins, chestTimeLeft);
 		finished = true;
 		currentScreen = GameScreen::TREASURE;
 		mazeActive = false;
@@ -195,7 +198,7 @@ void GameManager::HandleMaze()
 	if (playTime >= TIME_LIMIT && !finished)
 	{
 		currentScreen = GameScreen::LOSE;
-		lastScreen = GameScreen::TREASURE;
+		lastScreen = GameScreen::LOSE;
 		ResetGame();
 		myPlayer->loseLife();
 
@@ -210,16 +213,15 @@ void GameManager::HandleTreasure() {
 	myChestRoom.Update(myPlayer);
 	if (myPlayer->hasWonTreasure(myChestRoom))
 	{
-		delete myPlayer;
-		myPlayer = nullptr;
+
 		finished = true;
 		currentScreen = GameScreen::WIN;
-		mazeActive = false;
-
+		lastScreen = GameScreen::WIN;
 	}
 	if (chestTimeLeft <= 0.f || myPlayer->lifeLost())
 	{
 		currentScreen = GameScreen::LOSE;
+		lastScreen = GameScreen::LOSE;
 		ResetGame();
 		myPlayer->loseLife();
 	}

@@ -133,3 +133,4 @@ bool Player::lifeLost()
 {
 	return (lives == 0);
 }
+

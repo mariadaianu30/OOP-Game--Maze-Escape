@@ -23,7 +23,7 @@ private:
 	void HandleLose();
 	void HandleTreasure();
 	bool OneDiamond = true;
-	static constexpr float TIME_LIMIT = 1.f;
+	static constexpr float TIME_LIMIT = 20.f;
 	GameScreen currentScreen = GameScreen::MENU;
 	GameScreen lastScreen = GameScreen::MENU;
 	float playTime = 0.f;
@@ -43,7 +43,7 @@ private:
 	Obstacle myObstacle;
 	bool wantExit = false;
 	float delta = GetFrameTime();
-	static constexpr float CHEST_LIMIT = 50.f;
+	static constexpr float CHEST_LIMIT = 100.f;
 	float chestTimeLeft = CHEST_LIMIT;
 
 
