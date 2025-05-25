@@ -37,7 +37,6 @@ public:
 
 	void spawnLoot(int diamondCount, int coinCount);
 	void Update() override;
-	bool isExitCell(int x, int y) const;
 	void Regenerate();
 	inline void sealCeiling();
 

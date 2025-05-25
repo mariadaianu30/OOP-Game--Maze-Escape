@@ -156,10 +156,7 @@ void LabyrinthRoom::Update()
 			warnTimer = 0.0f;
 	}
 }
-bool LabyrinthRoom::isExitCell(int x, int y) const
-{
-	return roomLayout[x][y] == 3;		///checks if we reached the exit
-}
+
 
 void LabyrinthRoom::Regenerate()
 {

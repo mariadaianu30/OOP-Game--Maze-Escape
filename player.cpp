@@ -1,7 +1,7 @@
 ﻿#include "player.h"
 
 
-Player::Player(int col, int row, const char* characterPath, Diamond* d, Coin* c, Chest* ch, Obstacle* o, int existingLives, int existingCoins, float& levelTimer) :diamondSystem(d), coinSystem(c), chestSystem(ch), obstacleSystem(o), timeLeft(levelTimer)
+Player::Player(int col, int row, const char* characterPath, Diamond* d, Coin* c, Chest<std::string>* ch, Obstacle* o, int existingLives, int existingCoins, float& levelTimer) :diamondSystem(d), coinSystem(c), chestSystem(ch), obstacleSystem(o), timeLeft(levelTimer)
 {
 
 	texture = safeLoadTexture(characterPath);
@@ -24,7 +24,7 @@ Player::~Player()
 void Player::DrawObject()
 {
 
-	const float scale = 1.7f;
+	const float scale = 1.5f;
 
 
 	const float px = position.x * cellsize + cellsize / 2.0f;
@@ -91,17 +91,29 @@ void Player::UpdateObject(const std::vector < std::vector<int>>& maze)
 	}
 	if (inBounds(newCol, newRow) && maze[newRow][newCol] == 5 && chestsCollected[newRow][newCol] == 0)
 	{
-		chestsCollected[newRow][newCol] = 1;
-		chestSystem->CollectChestAt(newCol, newRow);
+		chestsCollected[newRow][newCol] = 1;;
+		if (auto loot = chestSystem->OpenAt(newCol, newRow))
+		{
+			if (*loot == "coin")      coins += 10;
+			else if (*loot == "diamond") diamondChest++;
+		}
+
 	}
 
 }
 
 
-bool Player::hasWon(const LabyrinthRoom& room, const Diamond& d) const
+bool Player::hasWonMaze(const LabyrinthRoom& room, const Diamond& d) const
 {
 	bool atExit = room.isExitCell(position.x, position.y);
 	bool allTaken = (diamondCount == d.getTotal());
+	return atExit && allTaken;
+}
+
+bool Player::hasWonTreasure(const ChestRoom& room) const
+{
+	bool atExit = room.isExitCell(position.x, position.y);
+	bool allTaken = (diamondChest == 1);
 	return atExit && allTaken;
 }
 

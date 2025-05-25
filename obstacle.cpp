@@ -33,7 +33,7 @@ void Obstacle::Load()
 }
 void Obstacle::DrawObject()
 {
-	const float scale = 1.2f;
+	const float scale = 1.0f;
 	for (size_t i = 0; i < obstacles.size(); ++i)
 	{
 		const Cell& c = obstacles[i];

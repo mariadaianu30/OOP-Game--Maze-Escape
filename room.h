@@ -42,4 +42,5 @@ public:
 	};
 	virtual void triggerWarning(const char* msg);
 	virtual void Load(const char* groundPath, const char* wallPath, const char* fontPath);
+	bool isExitCell(int x, int y) const;
 };

@@ -11,11 +11,15 @@
 #include "coin.h"
 #include "chest.h"
 #include "obstacle.h"
+#include "chestRoom.h"
 
+template<typename T> class Chest;
 class Diamond;
+class ChestRoom;
 class Player : public Object
 {
 protected:
+
 	int diamondCount = 0;
 	std::vector < std::vector<int>>diamondsCollected;
 	Diamond* diamondSystem;
@@ -25,16 +29,19 @@ protected:
 	Coin* coinSystem;
 	int lives;
 	int coins;
-	Chest* chestSystem;
+	Chest<Coin>* coinChests = nullptr;
+	Chest<std::string>* chestSystem;
 	std::vector <std::vector<int>>chestsCollected;
 	Obstacle* obstacleSystem;
 	std::vector < std::vector<int>>obstaclesCollisioned;
 	float& timeLeft;
+	int diamondChest = 0;
+	int coinChest = 0;
 
 
 
 public:
-	Player(int col, int row, const char* characterPath, Diamond* d, Coin* c, Chest* ch, Obstacle* o, int existingLives, int existingCoins, float& levelTimer);
+	Player(int col, int row, const char* characterPath, Diamond* d, Coin* c, Chest<std::string>* ch, Obstacle* o, int existingLives, int existingCoins, float& levelTimer);
 	~Player();
 	void UpdateObject(const std::vector < std::vector<int>>& maze) override;
 	void DrawObject() override;
@@ -44,7 +51,8 @@ public:
 		return coins;
 	};
 
-	bool hasWon(const LabyrinthRoom& room, const Diamond& diamMgr) const;
+	bool hasWonMaze(const LabyrinthRoom& room, const Diamond& diamMgr) const;
+	bool hasWonTreasure(const ChestRoom& room) const;
 	void loseLife();
 	bool lifeLost();
 	void buyLife();
@@ -52,5 +60,6 @@ public:
 	bool inBounds(int x, int y);
 	float getXplayer() { return position.x; };
 	float getYplayer() { return  position.y; };
+
 
 };

@@ -8,11 +8,16 @@ myLoseRoom("Graphics/background.jpg", "Graphics/font.ttf"),
 myWinRoom("Graphics/background.jpg", "Graphics/font.ttf"),
 myPlayerRoom("Graphics/background.jpg", "Graphics/font.ttf"),
 myChestRoom(),
-myChest(myChestRoom.getRoomLayout()),
-myObstacle(myChestRoom.getRoomLayout())
+myChest(myChestRoom.getRoomLayout(),
+	[oneDiamond = true]() mutable -> std::string {
+		if (oneDiamond) { oneDiamond = false; return "diamond"; }
+		return "coin";
+	}),
+	myObstacle(myChestRoom.getRoomLayout())
 {
+
 	myLab.Load("Graphics/dirt1.png", "Graphics/bush.png", "Graphics/font.ttf");
-	myChestRoom.Load("Graphics/dirt1.png", "Graphics/bush.png", "Graphics/font.ttf");
+	myChestRoom.Load("Graphics/dirt2.png", "Graphics/bush.png", "Graphics/font.ttf");
 	myDiamond.Load();
 	myCoin.Load();
 	myChest.Load();
@@ -79,6 +84,7 @@ void GameManager::DrawGame()
 		myPlayer->DrawObject();
 		myChest.DrawObject();
 		myObstacle.DrawObject();
+		DrawText(TextFormat("Coins:%d", myPlayer->getCoin()), 370, 60, 25, RAYWHITE);
 		DrawText(TextFormat("Player Name:  %s", myMenu.getPlayerName()), 40, 60, 25, RAYWHITE);
 
 		for (int i = 0; i < myPlayer->getLives(); ++i)
@@ -177,7 +183,7 @@ void GameManager::HandleMaze()
 	myPlayer->UpdateObject(myLab.getRoomLayout()); // update the labyrinth room
 
 	///handling the win of the player by stopping the timer and setting the currentscreen to the win room
-	if (myPlayer->hasWon(myLab, myDiamond))
+	if (myPlayer->hasWonMaze(myLab, myDiamond))
 	{
 		delete myPlayer;
 		myPlayer = nullptr;
@@ -188,7 +194,7 @@ void GameManager::HandleMaze()
 	}
 	if (playTime >= TIME_LIMIT && !finished)
 	{
-		currentScreen = GameScreen::TREASURE;
+		currentScreen = GameScreen::LOSE;
 		lastScreen = GameScreen::TREASURE;
 		ResetGame();
 		myPlayer->loseLife();
@@ -200,10 +206,22 @@ void GameManager::HandleMaze()
 void GameManager::HandleTreasure() {
 	chestTimeLeft = std::max(0.f, chestTimeLeft - GetFrameTime());
 	myPlayer->UpdateObject(myChestRoom.getRoomLayout());
+
 	myChestRoom.Update(myPlayer);
+	if (myPlayer->hasWonTreasure(myChestRoom))
+	{
+		delete myPlayer;
+		myPlayer = nullptr;
+		finished = true;
+		currentScreen = GameScreen::WIN;
+		mazeActive = false;
+
+	}
 	if (chestTimeLeft <= 0.f || myPlayer->lifeLost())
 	{
 		currentScreen = GameScreen::LOSE;
+		ResetGame();
+		myPlayer->loseLife();
 	}
 }
 
@@ -220,8 +238,12 @@ void GameManager::ResetGame()
 	myDiamond.Load();
 	myCoin.Load();
 	myChestRoom.Regenerate();
-	myChest = Chest(myChestRoom.getRoomLayout());
-	myObstacle = Obstacle(myChestRoom.getRoomLayout());
+	myChest = Chest<std::string>(myChestRoom.getRoomLayout(),
+		[oneDiamond = true]() mutable -> std::string {
+			if (oneDiamond) { oneDiamond = false; return "diamond"; }
+			return "coin";
+		}),
+		myObstacle = Obstacle(myChestRoom.getRoomLayout());
 	myChest.Load();
 	myObstacle.Load();
 

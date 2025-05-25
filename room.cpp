@@ -63,3 +63,7 @@ void Room::Load(const char* groundPath, const char* wallPath, const char* fontPa
 	font = safeLoadFont(fontPath);
 
 }
+bool Room::isExitCell(int x, int y) const
+{
+	return roomLayout[x][y] == 3;		///checks if we reached the exit
+}

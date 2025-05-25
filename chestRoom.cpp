@@ -21,6 +21,9 @@ void ChestRoom::generateLayout() {
 	for (int i = 0; i < cellCount - 1; i++)
 		for (int j = 0; j < cellCount; j++)
 			roomLayout[i][j] = 0;
+	for (int i = cellCount - 3; i < cellCount - 1; i++)
+		for (int j = cellCount - 3; j < cellCount - 1; j++)
+			roomLayout[i][j] = 3;
 	generateChests(7, 5);
 	generateObstacles(70, 2);
 	generateEnemies(7);
@@ -36,16 +39,15 @@ void ChestRoom::Draw()
 }
 void ChestRoom::generateChests(int chestCount, int minDist)
 {
+	chests.clear();
 	std::vector<cell> freeCells;
-	for (int row = 1; row < cellCount; ++row)
+	for (int row = 2; row < cellCount; ++row)
 		for (int col = 5; col < cellCount - 1; ++col)
 			if (roomLayout[row][col] == 0)
 				freeCells.push_back({ col,row });
 
 
 	std::shuffle(freeCells.begin(), freeCells.end(), rng);
-
-	chests.clear();
 
 	const int minDist2 = minDist * minDist;
 	for (const auto& ch : freeCells) {
@@ -68,7 +70,7 @@ void ChestRoom::generateChests(int chestCount, int minDist)
 void ChestRoom::generateObstacles(int obstacleCount, int minDist)
 {
 	std::vector<cell> freeCells;
-	for (int row = 1; row < cellCount; ++row)
+	for (int row = 2; row < cellCount; ++row)
 		for (int col = 5; col < cellCount - 1; ++col)
 			if (roomLayout[row][col] == 0)
 				freeCells.push_back({ col,row });
@@ -101,7 +103,7 @@ void ChestRoom::generateObstacles(int obstacleCount, int minDist)
 void ChestRoom::generateEnemies(int enemyCount)
 {
 	std::vector<cell> free;
-	for (int row = 1; row < cellCount; ++row)
+	for (int row = 5; row < cellCount - 1; ++row)
 		for (int col = 5; col < cellCount - 1; ++col)
 			if (roomLayout[row][col] == 0)
 				free.push_back({ col, row });

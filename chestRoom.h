@@ -12,6 +12,7 @@
 #include "resources.h"
 #include "player.h"
 
+class Player;
 class ChestRoom :public Room
 {
 private:
