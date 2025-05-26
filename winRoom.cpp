@@ -39,7 +39,7 @@ void WinRoom::HandleHover()
 }
 void WinRoom::update(int score) {
 	std::string newPath;
-
+	///we update the reward texture based on the score
 	if (score >= 140)
 		newPath = "Graphics/gold.png";
 	else if (score >= 100)
@@ -47,6 +47,8 @@ void WinRoom::update(int score) {
 	else
 		newPath = "Graphics/bronze.png";
 
+	///if the new path is different from the current one, we unload the old texture and load the new one
+	///we do this so that we don't keep loading the same texture multiple times, which would waste memory
 	if (newPath != currentRewardPath) {
 		if (reward.id != 0)
 			UnloadTexture(reward);

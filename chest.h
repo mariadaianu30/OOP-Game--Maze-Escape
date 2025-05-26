@@ -8,12 +8,12 @@
 #include "object.h"
 #include "resources.h"
 
-template<typename T>
+template<typename T> /// template class to allow for different types of loot in the chest
 class Chest :public Object
 {
 private:
 
-	struct chestCell
+	struct chestCell		/// struct to hold the chest position, the loot type and if it has been opened
 	{
 		Cell pos;
 		T  chest;
@@ -80,23 +80,23 @@ public:
 		coinTex = safeLoadTexture("Graphics/coin.png");
 	}
 
-	std::optional<T> OpenAt(int col, int row)
+	std::optional<T> OpenAt(int col, int row)		/// function to open a chest at a specific position
 	{
-		auto it = std::find_if(chests.begin(), chests.end(), [&](const chestCell& c)
+		auto it = std::find_if(chests.begin(), chests.end(), [&](const chestCell& c)  ///we extract the chest at the given position
 			{
 				return c.pos.x == col && c.pos.y == row;
 			});
-		if (it == chests.end() || it->opened)
+		if (it == chests.end() || it->opened)		///if the chest is not found or it has already been opened, we return an empty optional
 			return std::nullopt;
 
-		it->opened = true;
-		return it->chest;
+		it->opened = true;			///mark the chest as opened
+		return it->chest;			/// return the loot type inside the chest
 	}
 
 	int countOpenedChests() const {
-		return std::count_if(chests.begin(), chests.end(), [](const chestCell& c) 
+		return std::count_if(chests.begin(), chests.end(), [](const chestCell& c)
 			{
-			return c.opened;
+				return c.opened;
 			}
 		);
 	}
@@ -104,7 +104,7 @@ public:
 		return chests.size();
 	}
 };
-template<typename T>
+template<typename T>		/// function to get the progress text for the chests
 std::string getChestProgressText(const Chest<T>& chest) {
 	int opened = chest.countOpenedChests();
 	int total = chest.getChestCount();

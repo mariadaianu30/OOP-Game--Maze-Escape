@@ -2,13 +2,6 @@
 ///Grupa 132
 /// An Universitar 2024-2025
 
-/*  Instruct?iuni rapide de joc
-	1)  Meniu: treci cursorul peste ca?su?a de text, scrie-?i numele ?i apasă Enter.
-	2)  Labirint: mi?că-te cu săge?ile ???? sau cu tastele A-W-S-D.
-	3)  Adună toate diamantele ?i găse?te ie?irea înainte să expire cele 150 de secunde.
-	Succes la evadare!
-*/
-
 #include "raylib.h"
 #include "resources.h"
 #include "fileLoad.h"
