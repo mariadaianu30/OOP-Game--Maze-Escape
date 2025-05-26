@@ -1,7 +1,7 @@
 #include "GameManager.h"
 
+///constructor of GameManager class containing the initialization of the rooms, the player and the objects
 GameManager::GameManager() :myLab(),
-myMenu("Graphics/background.jpg", "Graphics/play_button.png", "Graphics/exit_button.png", "Graphics/info.png", "Graphics/font.ttf", "Graphics/inputbox.png"),
 myDiamond(myLab.getRoomLayout()),
 myCoin(myLab.getRoomLayout()),
 myLoseRoom("Graphics/background.jpg", "Graphics/font.ttf"),
@@ -10,11 +10,14 @@ myPlayerRoom("Graphics/background.jpg", "Graphics/font.ttf"),
 myChestRoom(),
 myChest(myChestRoom.getRoomLayout(),
 	[oneDiamond = true]() mutable -> std::string {
-		if (oneDiamond) { oneDiamond = false; return "diamond"; }
+		if (oneDiamond) { oneDiamond = false; return "diamond"; }		///generate only a diamond in of the chests
 		return "coin";
 	}),
 	myObstacle(myChestRoom.getRoomLayout())
+
 {
+	MenuRoom::GetInstance("Graphics/background.jpg", "Graphics/play_button.png", "Graphics/exit_button.png",
+		"Graphics/info.png", "Graphics/font.ttf", "Graphics/inputbox.png");
 
 	myLab.Load("Graphics/dirt1.png", "Graphics/bush.png", "Graphics/font.ttf");
 	myChestRoom.Load("Graphics/dirt2.png", "Graphics/bush.png", "Graphics/font.ttf");
@@ -30,7 +33,7 @@ GameManager::~GameManager()
 }
 
 
-void GameManager::UpdateGame() {
+void GameManager::UpdateGame() {		///handle game logic and update the game state based on the current screen
 	switch (currentScreen) {
 	case GameScreen::MENU:
 		HandleMenu();
@@ -52,12 +55,12 @@ void GameManager::UpdateGame() {
 		break;
 	}
 }
-void GameManager::DrawGame()
+void GameManager::DrawGame()  ///draw the game based on the current screen
 {
 	switch (currentScreen)
 	{
 	case GameScreen::MENU:
-		myMenu.Draw();
+		MenuRoom::GetInstance()->Draw();
 		break;
 	case GameScreen::PLAYER:
 		myPlayerRoom.Draw();
@@ -70,9 +73,10 @@ void GameManager::DrawGame()
 		DrawText(TextFormat("Diamonds: %d / %d", myPlayer->getDiamondCount(), myDiamond.getTotal()), 600, 60, 25, RAYWHITE);
 		DrawText(TextFormat("Time: %.0f", TIME_LIMIT - playTime), 750, 20, 25, RAYWHITE);
 		DrawText(TextFormat("Coins:%d", myPlayer->getCoin()), 370, 60, 25, RAYWHITE);
-		DrawText(TextFormat("Player Name:  %s", myMenu.getPlayerName()), 40, 60, 25, RAYWHITE);
+		DrawText(TextFormat("Player Name:  %s", MenuRoom::GetInstance()->getPlayerName()), 40, 60, 25, RAYWHITE);
 
-		for (int i = 0; i < myPlayer->getLives(); ++i)
+
+		for (int i = 0; i < myPlayer->getLives(); ++i)	///draw the hearts avaliable for the player
 		{
 			Rectangle src = { 0, 0, static_cast<float>(heart.width), static_cast<float>(heart.height) };
 			Rectangle dest = { (35 - i) * 20, 7, 50, 50 };
@@ -85,7 +89,7 @@ void GameManager::DrawGame()
 		myChest.DrawObject();
 		myObstacle.DrawObject();
 		DrawText(TextFormat("Coins:%d", myPlayer->getCoin()), 370, 60, 25, RAYWHITE);
-		DrawText(TextFormat("Player Name:  %s", myMenu.getPlayerName()), 40, 60, 25, RAYWHITE);
+		DrawText(TextFormat("Player Name:  %s", MenuRoom::GetInstance()->getPlayerName()), 40, 60, 25, RAYWHITE);
 
 		for (int i = 0; i < myPlayer->getLives(); ++i)
 		{
@@ -116,23 +120,24 @@ void GameManager::DrawGame()
 	}
 }
 
-void GameManager::HandleMenu()
+void GameManager::HandleMenu()			///handle the menu screen logic
 {
-	myMenu.HandleMouseHover(GetMousePosition());
-	myMenu.HandleMouseClick(GetMousePosition());
-	myMenu.HandleInput(); // handle input for the menu
-	myMenu.getPlayerName(); // get the player name from the menu
-	myMenu.Update();
+	MenuRoom::GetInstance()->HandleMouseHover(GetMousePosition());   ///we use the singleton pattern to ensure only one instance of MenuRoom exists
+	MenuRoom::GetInstance()->HandleMouseClick(GetMousePosition());
+	MenuRoom::GetInstance()->HandleInput();
+	MenuRoom::GetInstance()->getPlayerName();
+	MenuRoom::GetInstance()->Update();
 
-	if (myMenu.shouldExit())
+	if (MenuRoom::GetInstance()->shouldExit())
 		wantExit = true;
-	if (myMenu.StartGame())
+
+	if (MenuRoom::GetInstance()->StartGame())
 	{
 		currentScreen = GameScreen::PLAYER;
 		lastScreen = GameScreen::MENU;
 	}
 }
-void GameManager::HandlePlayerSelect()
+void GameManager::HandlePlayerSelect()		///the player selection screen logic
 {
 	myPlayerRoom.HandleClick();
 	myPlayerRoom.HandleStart();
@@ -141,41 +146,41 @@ void GameManager::HandlePlayerSelect()
 	if (myPlayerRoom.startGame())
 	{
 		currentScreen = GameScreen::MAZE;
-		myPlayer = new Player(1, 5, myPlayerRoom.getCharacter(), &myDiamond, &myCoin, &myChest, &myObstacle, 3, 100, chestTimeLeft);
+		myPlayer = new Player(1, 5, myPlayerRoom.getCharacter(), &myDiamond, &myCoin, &myChest, &myObstacle, 3, 100, chestTimeLeft);	///create the player with the selected character and the objects
 	}
 }
 
-void GameManager::HandleLose()
+void GameManager::HandleLose()			///handle the lose screen logic
 {
 	mazeActive = false;
 
 	lastScreen = GameScreen::MAZE;
 	myLoseRoom.HandleHover();
 
-	if (myLoseRoom.HandleClickReplay())
+	if (myLoseRoom.HandleClickReplay())	 ///if the player wants to retry the game, we check if he has enough lives
 	{
 
 		try {
 			if (myPlayer->lifeLost())
-				throw NotEnoughLives();
+				throw NotEnoughLives();	///if the player has no lives left, we throw an exception
 
 			ResetGame();
 		}
-		catch (const NotEnoughLives& e) {
+		catch (const NotEnoughLives& e) {   ///if the player has no lives left, we show a warning
 			showRetryWarning = true;
 			retryWarnTimer = 3.0f;
 		}
 	}
-	if (myLoseRoom.HandleClickBuy() && myPlayer->getLives() <= 3 && myPlayer->getCoin() >= 40)
+	if (myLoseRoom.HandleClickBuy() && myPlayer->getLives() <= 3 && myPlayer->getCoin() >= 40) ///	///if the player wants to buy a life, we check if he has enough coins
 	{
 		ResetGame();
-		myPlayer->buyLife();
+		myPlayer->buyLife();		///a heart costs 40 coins
 	}
-	if (myLoseRoom.HandleClickExit())
+	if (myLoseRoom.HandleClickExit())		///if the player wants to exit the game, we set the wantExit variable to true
 	{
 		wantExit = true;
 	}
-	if (showRetryWarning) {
+	if (showRetryWarning) {				///if the player has no lives left, we show a warning for 3 seconds
 		retryWarnTimer -= GetFrameTime();
 		if (retryWarnTimer <= 0.0f) {
 			retryWarnTimer = 0.0f;
@@ -201,20 +206,21 @@ void GameManager::HandleMaze()
 		playTime += GetFrameTime(); // update the play time
 	myPlayer->UpdateObject(myLab.getRoomLayout()); // update the labyrinth room
 
-	///handling the win of the player by stopping the timer and setting the currentscreen to the win room
+	///handling the win of the player by stopping the timer and setting the currentscreen to the treasure room
 	if (myPlayer->hasWonMaze(myLab, myDiamond))
 	{
 		int oldLives = myPlayer->getLives();
 		int oldCoins = myPlayer->getCoin();
 		delete myPlayer;
 		chestTimeLeft = CHEST_LIMIT;
+		///we reinitialize the player with the new objects and the old lives and coins, and given start position
 		myPlayer = new Player(1, 5, myPlayerRoom.getCharacter(), &myDiamond, &myCoin, &myChest, &myObstacle, oldLives, oldCoins, chestTimeLeft);
 		finished = true;
 		currentScreen = GameScreen::TREASURE;
 		mazeActive = false;
 
 	}
-	if (playTime >= TIME_LIMIT && !finished)
+	if (playTime >= TIME_LIMIT && !finished)			///if the player has not won the maze in the given time, we set the current screen to lose
 	{
 		currentScreen = GameScreen::LOSE;
 		lastScreen = GameScreen::LOSE;
@@ -226,18 +232,18 @@ void GameManager::HandleMaze()
 
 }
 void GameManager::HandleTreasure() {
-	chestTimeLeft = std::max(0.f, chestTimeLeft - GetFrameTime());
+	chestTimeLeft = std::max(0.f, chestTimeLeft - GetFrameTime());	///update the chest time left and check if the player has won the treasure
 	myPlayer->UpdateObject(myChestRoom.getRoomLayout());
 
 	myChestRoom.Update(myPlayer);
-	if (myPlayer->hasWonTreasure(myChestRoom))
+	if (myPlayer->hasWonTreasure(myChestRoom))	///if the player finds the diamond, he wins the game
 	{
 
 		finished = true;
 		currentScreen = GameScreen::WIN;
 		lastScreen = GameScreen::WIN;
 	}
-	if (chestTimeLeft <= 0.f || myPlayer->lifeLost())
+	if (chestTimeLeft <= 0.f || myPlayer->lifeLost())	///if the player has no time left or loses a life, we set the current screen to lose
 	{
 		currentScreen = GameScreen::LOSE;
 		lastScreen = GameScreen::LOSE;
@@ -246,7 +252,7 @@ void GameManager::HandleTreasure() {
 	}
 }
 
-void GameManager::ResetGame()
+void GameManager::ResetGame()	 ///reset the game to the initial state, reinitialize the player and the objects
 {
 	playTime = 0.f;
 	finished = false;

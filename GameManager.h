@@ -32,7 +32,6 @@ private:
 	bool mazeActive = false;
 	Texture2D heart = safeLoadTexture("Graphics/heart.png");
 	LabyrinthRoom myLab;
-	MenuRoom myMenu;
 	PlayerRoom myPlayerRoom;
 	Diamond myDiamond;
 	Coin myCoin;

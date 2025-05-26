@@ -17,6 +17,8 @@ void PlayerRoom::Draw()
 
 	playerGirl.DrawObject();
 	playerBoy.DrawObject();
+	///we draw the frames for the characters
+	///we create a pop-up image with a thank you message for the player based on the character chosen
 	if (showThanksGirl)
 	{
 		Rectangle src = { 0, 0, (float)thanks.width, (float)thanks.height };
@@ -32,14 +34,14 @@ void PlayerRoom::Draw()
 	}
 	playButton.DrawButton();
 	DrawTextEx(font, "CHOOSE YOUR PLAYER! ", { 270, 300 }, 43, 3, WHITE);
-	if (warnTimer > 0.0f)
+	if (warnTimer > 0.0f)		///we display a warning if the player wants to start the game without choosing a character
 	{
 		unsigned char alpha = (unsigned char)(255 * (warnTimer / WARN_DURATION));
 		DrawTextEx(font, "Please choose your character!",
 			{ 260,650 }, 30, 3, RED);
 	}
 }
-const char* PlayerRoom::HandleClick()
+const char* PlayerRoom::HandleClick()	///we get the character path based on the player chosen
 {
 	if (playerGirl.clickedObject(GetMousePosition(), IsMouseButtonPressed(MOUSE_LEFT_BUTTON)))
 
@@ -66,7 +68,7 @@ void PlayerRoom::HandleStart()
 			checkIfPicked();
 			start = true;///if the name is correct the game can start
 		}
-		catch (const PickCharacterException& e)
+		catch (const PickCharacterException& e)		///we check if the player has picked a character
 		{
 			triggerWarning(e.what());
 		}

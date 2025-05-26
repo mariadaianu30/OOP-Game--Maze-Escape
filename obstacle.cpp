@@ -18,6 +18,7 @@ Obstacle::~Obstacle()
 }
 void Obstacle::Load()
 {
+	///we want to alternate between two textures for the obstacles, so we load them into a vector
 	const char* files[] = {
 		"Graphics/obstacle.png",
 		"Graphics/bush.png",
@@ -25,7 +26,7 @@ void Obstacle::Load()
 	for (const char* p : files)
 		textures.push_back(safeLoadTexture(p));
 
-
+	///we randomly assign a texture to each obstacle
 	std::mt19937 rng{ std::random_device{}() };
 	std::uniform_int_distribution<int> dist(0, (int)textures.size() - 1);
 	for (int& idx : texIdx)

@@ -73,7 +73,7 @@ void Player::UpdateObject(const std::vector < std::vector<int>>& maze)
 	}
 	if (inBounds(newCol, newRow) && maze[newRow][newCol] == 6)
 	{
-		timeLeft = std::max(0.0f, timeLeft - 10.0f);
+		timeLeft = std::max(0.0f, timeLeft - 10.0f);		///we want to reduce the time left by 10 seconds if we hit an obstacle
 	}
 	if (inBounds(newCol, newRow) && maze[newRow][newCol] == 2 && diamondsCollected[newRow][newCol] == 0)
 	{
@@ -87,14 +87,14 @@ void Player::UpdateObject(const std::vector < std::vector<int>>& maze)
 		coinCount++;
 		coins += 10;
 		coinsCollected[newRow][newCol] = 1;
-		coinSystem->CollectCoinAt(newCol, newRow);
+		coinSystem->CollectCoinAt(newCol, newRow);		///we want to delete the coin we just had a collision with and add it to the coincount
 	}
 	if (inBounds(newCol, newRow) && maze[newRow][newCol] == 5 && chestsCollected[newRow][newCol] == 0)
 	{
 		chestsCollected[newRow][newCol] = 1;;
-		if (auto loot = chestSystem->OpenAt(newCol, newRow))
+		if (auto loot = chestSystem->OpenAt(newCol, newRow))		///we want to open the chest and see what we got inside
 		{
-			if (*loot == "coin")      coins += 10;
+			if (*loot == "coin")      coins += 10;		///increase the coinCount if we find a coin inside the chest
 			else if (*loot == "diamond") diamondChest++;
 		}
 
@@ -103,17 +103,17 @@ void Player::UpdateObject(const std::vector < std::vector<int>>& maze)
 }
 
 
-bool Player::hasWonMaze(const LabyrinthRoom& room, const Diamond& d) const
+bool Player::hasWonMaze(const LabyrinthRoom& room, const Diamond& d) const		///test if the player has won the maze
 {
-	bool atExit = room.isExitCell(position.x, position.y);
-	bool allTaken = (diamondCount == d.getTotal());
+	bool atExit = room.isExitCell(position.x, position.y);	///we check if the player is at the exit cell of the maze
+	bool allTaken = (diamondCount == d.getTotal());		///we check if the player has collected all the diamonds
 	return atExit && allTaken;
 }
 
-bool Player::hasWonTreasure(const ChestRoom& room) const
+bool Player::hasWonTreasure(const ChestRoom& room) const  ///test if the player has won the treasure room
 {
 	bool atExit = room.isExitCell(position.x, position.y);
-	bool allTaken = (diamondChest == 1);
+	bool allTaken = (diamondChest == 1);  ///we check if the player has collected the diamond from the chests
 	return atExit && allTaken;
 }
 

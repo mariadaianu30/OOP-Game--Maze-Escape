@@ -7,15 +7,16 @@ Enemy::Enemy(int startX, int startY, Texture2D* sharedTex)
 	tex = sharedTex;
 }
 
-bool Enemy::inBounds(int x, int y)
+bool Enemy::inBounds(int x, int y)		///check if the enemy is within the bounds of the maze
 {
 	return (x >= 1 && x < cellcount - 1 && y >= 5 && y < cellcount - 1);
 }
 void Enemy::Update(const std::vector<std::vector<int>>& map, std::mt19937& rng)
 {
+	///the enemy moves every 15 frames, so we check if the frame is divisible by 15
 	if (++frame % step != 0)
 		return;
-	static const int dx[4] = { 1, -1, 0, 0 };
+	static const int dx[4] = { 1, -1, 0, 0 };		///calculate the new positions for rendering
 	static const int dy[4] = { 0, 0, 1, -1 };
 
 	std::uniform_int_distribution<int> dirDist(0, 3);
@@ -24,6 +25,7 @@ void Enemy::Update(const std::vector<std::vector<int>>& map, std::mt19937& rng)
 	int newx = position.x + dx[dir];
 	int newy = position.y + dy[dir];
 
+	///check if the new position is within the bounds of the maze and if it is not an obstacle
 	if (newy < 6 || newy >= (int)map.size() - 1 || newx < 2 || newx >= (int)map[0].size() || !(inBounds(newx, newy)))
 		return;
 	if (map[newy][newx] != 0 || !(inBounds(newx, newy))) return;

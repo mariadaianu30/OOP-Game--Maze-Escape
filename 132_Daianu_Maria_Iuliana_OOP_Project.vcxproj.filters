@@ -60,9 +60,6 @@
     <ClCompile Include="chestRoom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="chest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="obstacle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

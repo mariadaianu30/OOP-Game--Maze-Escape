@@ -19,7 +19,7 @@ void WinRoom::Draw()
 {
 	ClearBackground(BLACK);
 	DrawTexture(background, 0, 0, WHITE);
-	DrawTextEx(font, "Labyrinth of Echoes: Shards of The Unknown", { 90, 300 }, 40, 3, WHITE);
+	DrawTextEx(font, "The Last Treasure: Heart of The Gem", { 150, 300 }, 40, 3, WHITE);
 	DrawTextEx(font, "YOU WON!", { 350, 400 }, 50, 3, WHITE);
 	exitButton.DrawButton();
 

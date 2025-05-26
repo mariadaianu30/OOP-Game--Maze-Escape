@@ -2,6 +2,11 @@
 #include<iostream>
 #include<cstring>
 #include <exception>
+
+#pragma once
+#include<iostream>
+#include<cstring>
+#include <exception>
 #include <raylib.h>
 #include "button.h"
 #include "room.h"
@@ -12,7 +17,7 @@
 class MenuRoom : public Room
 {
 private:
-
+	static MenuRoom* instance;
 	Button playButton;
 	Button exitButton;
 	Button infoButton;
@@ -27,10 +32,16 @@ private:
 	Texture2D arrows;
 	Texture2D keys;
 
+	MenuRoom(const char* backgroundPath, const char* playButtonPath, const char* exitButtonPath, const char* infoButtonPath, const char* fontPath, const char* inputPath);
 
 
 public:
-	MenuRoom(const char* backgroundPath, const char* playButtonPath, const char* exitButtonPath, const char* infoButtonPath, const char* fontPath, const char* inputPath);
+	static MenuRoom* GetInstance(const char* backgroundPath = nullptr,
+		const char* playButtonPath = nullptr,
+		const char* exitButtonPath = nullptr,
+		const char* infoButtonPath = nullptr,
+		const char* fontPath = nullptr,
+		const char* inputPath = nullptr);
 	~MenuRoom();
 	void Draw() override;
 	void HandleInput();
@@ -41,4 +52,5 @@ public:
 	const char* getPlayerName() const { return playerName; } // Getter for playerName
 	void validatePlayerName() const; // Check if the name is valid
 	const char* getPlayerName() { return playerName; };
+
 };

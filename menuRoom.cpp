@@ -1,5 +1,23 @@
 #include "menuRoom.h"
 
+///create singleton pattern
+MenuRoom* MenuRoom::instance = nullptr;
+
+/// Initialize the static instance of MenuRoom
+MenuRoom* MenuRoom::GetInstance(const char* backgroundPath, const char* playButtonPath, const char* exitButtonPath, const char* infoButtonPath, const char* fontPath, const char* inputPath)
+{
+	if (instance == nullptr)
+	{
+		if (!backgroundPath || !playButtonPath || !exitButtonPath || !infoButtonPath || !fontPath || !inputPath)
+		{
+			throw std::runtime_error("MenuRoom not initialized yet. All parameters are required for first initialization.");
+		}
+		instance = new MenuRoom(backgroundPath, playButtonPath, exitButtonPath, infoButtonPath, fontPath, inputPath);
+	}
+	return instance;
+}
+
+///the constructor of the menu room
 MenuRoom::MenuRoom(const char* backgroundPath, const char* playButtonPath, const char* exitButtonPath, const char* infoButtonPath, const char* fontPath, const char* inputPath)
 	: playButton(playButtonPath, { 330,500 }, 0.23), exitButton(exitButtonPath, { 345, 670 }, 0.2), infoButton(infoButtonPath, { 750, 30 }, 0.25)
 {
@@ -27,6 +45,7 @@ MenuRoom::~MenuRoom()
 	exitButton.~Button();
 	UnloadFont(font);
 	UnloadTexture(inputBackground);
+	delete instance;
 }
 
 void MenuRoom::Draw()
@@ -34,7 +53,7 @@ void MenuRoom::Draw()
 
 	ClearBackground(BLACK);
 	DrawTexture(background, 0, 0, WHITE);
-	DrawTextEx(font, "Labyrinth of Echoes: Shards of The Unknown", { 90, 200 }, 40, 3, WHITE);
+	DrawTextEx(font, "The Last Treasure: Heart of The Gem", { 150, 200 }, 40, 3, WHITE);
 	playButton.DrawButton();
 	exitButton.DrawButton();
 	infoButton.DrawButton();
@@ -51,6 +70,7 @@ void MenuRoom::Draw()
 	}
 	if (showInstructions)
 	{
+		/// draws the instructions for the player
 		DrawRectangle(0, 0, 900, 900, Fade(BLACK, 0.9f));
 		DrawTextEx(font, "How to play:", { 350, 130 }, 40, 3, WHITE);
 		DrawTextEx(font, "- Use arrow keys or A-W-S-D keys to move", { 100, 210 }, 28, 2, RAYWHITE);
@@ -61,7 +81,7 @@ void MenuRoom::Draw()
 		DrawTextEx(font, "-Stay away from the enemies and don't step on any obstacle.", { 100, 440 }, 28, 2, RAYWHITE);
 		DrawTextEx(font, "-Stepping on an obstacle will cost you 10 seconds of your time.", { 100, 500 }, 28, 2, RAYWHITE);
 		DrawTextEx(font, "-Crossing paths with an enemy will kill you.", { 100, 550 }, 28, 2, RAYWHITE);
-		DrawTextEx(font, "-Be careful! You only have 3 lives! Or you can buy more!", { 100, 600 }, 28, 2, RAYWHITE);
+		DrawTextEx(font, "-You only have 3 lives! Or you can buy more for 40 coins!", { 100, 600 }, 28, 2, RAYWHITE);
 		DrawTextEx(font, "Press [BACKSPACE] to go back", { 100,800 }, 20, 2, GRAY);
 		Rectangle source1 = { 0, 0, (float)keys.width, (float)keys.height };
 		Rectangle dest1 = { 250, 650, 150, 120 };
@@ -162,6 +182,6 @@ bool MenuRoom::StartGame()
 
 void MenuRoom::validatePlayerName() const
 {
-	if (letters <= 3)
+	if (letters <= 0)
 		throw NameMissingException();
 }
