@@ -13,6 +13,7 @@
 #include "chest.h"
 #include "obstacle.h"
 #include "EnoughLives.h"
+#include "scoreManager.h"
 
 
 class GameManager {
@@ -41,6 +42,7 @@ private:
 	ChestRoom myChestRoom;
 	Chest<std::string> myChest;
 	Obstacle myObstacle;
+	ScoreManager scoreManager;
 	bool wantExit = false;
 	float delta = GetFrameTime();
 	static constexpr float CHEST_LIMIT = 100.f;

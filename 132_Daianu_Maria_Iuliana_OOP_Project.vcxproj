@@ -144,6 +144,7 @@
     <ClCompile Include="playerRoom.cpp" />
     <ClCompile Include="room.cpp" />
     <ClCompile Include="button.cpp" />
+    <ClCompile Include="scoreManager.cpp" />
     <ClCompile Include="winRoom.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +162,7 @@
     <ClInclude Include="nameMissing.h" />
     <ClInclude Include="EnoughLives.h" />
     <ClInclude Include="object.h" />
+    <ClInclude Include="observer.h" />
     <ClInclude Include="obstacle.h" />
     <ClInclude Include="pickCharacter.h" />
     <ClInclude Include="player.h" />
@@ -169,6 +171,7 @@
     <ClInclude Include="resources.h" />
     <ClInclude Include="room.h" />
     <ClInclude Include="button.h" />
+    <ClInclude Include="scoreManager.h" />
     <ClInclude Include="winRoom.h" />
   </ItemGroup>
   <ItemGroup>

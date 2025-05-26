@@ -25,6 +25,8 @@ myChest(myChestRoom.getRoomLayout(),
 	myCoin.Load();
 	myChest.Load();
 	myObstacle.Load();
+	scoreManager.attach(&myWinRoom);
+
 }
 
 GameManager::~GameManager()
@@ -90,6 +92,7 @@ void GameManager::DrawGame()  ///draw the game based on the current screen
 		myObstacle.DrawObject();
 		DrawText(TextFormat("Coins:%d", myPlayer->getCoin()), 370, 60, 25, RAYWHITE);
 		DrawText(TextFormat("Player Name:  %s", MenuRoom::GetInstance()->getPlayerName()), 40, 60, 25, RAYWHITE);
+		DrawText(TextFormat("Chests: %s", getChestProgressText(myChest).c_str()), 650, 60, 25, GOLD);
 
 		for (int i = 0; i < myPlayer->getLives(); ++i)
 		{
@@ -192,6 +195,11 @@ void GameManager::HandleLose()			///handle the lose screen logic
 
 void GameManager::HandleWin()
 {
+	scoreManager.evaluateLabyrinthScore(*myPlayer, myLab, myDiamond);
+	scoreManager.evaluateChestRoomScore(*myPlayer, myChestRoom);
+
+	int finalScore = scoreManager.getTotalScore();
+	scoreManager.notify(finalScore);
 	myWinRoom.HandleHover();
 	if (myWinRoom.HandleClickExit())
 	{

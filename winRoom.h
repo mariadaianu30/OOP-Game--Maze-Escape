@@ -6,11 +6,14 @@
 #include "gameException.h" 
 #include "nameMissing.h"
 #include "resources.h"
+#include "observer.h"
 
-class WinRoom : public Room
+class WinRoom : public Room, virtual public Observer
 {
 private:
 	Button exitButton;
+	Texture2D reward = { 0 };
+	std::string currentRewardPath;
 
 public:
 	WinRoom(const char* backgroundPath, const char* fontPath);
@@ -18,4 +21,5 @@ public:
 	void Draw() override;
 	void HandleHover();
 	bool HandleClickExit();
+	void update(int score) override;
 };

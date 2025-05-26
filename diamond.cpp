@@ -68,4 +68,3 @@ void Diamond::DrawObject()
 }
 
 
-

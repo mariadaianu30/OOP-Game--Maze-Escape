@@ -61,6 +61,11 @@ public:
 	bool inBounds(int x, int y);
 	float getXplayer() { return position.x; };
 	float getYplayer() { return  position.y; };
+	float getRemainingTime() const {
+		return timeLeft;
+	}
+
+
 
 
 };

@@ -13,7 +13,7 @@ void PlayerRoom::Draw()
 {
 	ClearBackground(BLACK);
 	DrawTexture(background, 0, 0, WHITE);
-	DrawTextEx(font, "Labyrinth of Echoes: Shards of The Unknown", { 90, 220 }, 40, 3, WHITE);
+	DrawTextEx(font, "The Last Treasure: Heart of The Gem", { 150, 220 }, 40, 3, WHITE);
 
 	playerGirl.DrawObject();
 	playerBoy.DrawObject();

@@ -3,6 +3,7 @@
 #include <functional>
 #include <optional>
 #include <vector>
+#include <string>
 #include <algorithm>
 #include "object.h"
 #include "resources.h"
@@ -92,5 +93,20 @@ public:
 		return it->chest;
 	}
 
-
+	int countOpenedChests() const {
+		return std::count_if(chests.begin(), chests.end(), [](const chestCell& c) 
+			{
+			return c.opened;
+			}
+		);
+	}
+	int getChestCount() const {
+		return chests.size();
+	}
 };
+template<typename T>
+std::string getChestProgressText(const Chest<T>& chest) {
+	int opened = chest.countOpenedChests();
+	int total = chest.getChestCount();
+	return std::to_string(opened) + " / " + std::to_string(total);
+}
