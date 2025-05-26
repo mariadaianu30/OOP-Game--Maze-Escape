@@ -19,7 +19,7 @@ int main() {
 
 	///we used the try and catch method to ensure the files loaded are valid and not throwing an access violation when running the game
 
-	InitWindow(875, 875, "Dungeon Escape");
+	InitWindow(875, 875, "Maze Escape");
 	SetTargetFPS(60);
 	try
 	{

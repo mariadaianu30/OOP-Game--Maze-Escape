@@ -12,6 +12,7 @@
 #include "chestRoom.h"
 #include "chest.h"
 #include "obstacle.h"
+#include "EnoughLives.h"
 
 
 class GameManager {
@@ -23,7 +24,7 @@ private:
 	void HandleLose();
 	void HandleTreasure();
 	bool OneDiamond = true;
-	static constexpr float TIME_LIMIT = 20.f;
+	static constexpr float TIME_LIMIT = 150.f;
 	GameScreen currentScreen = GameScreen::MENU;
 	GameScreen lastScreen = GameScreen::MENU;
 	float playTime = 0.f;
@@ -45,6 +46,8 @@ private:
 	float delta = GetFrameTime();
 	static constexpr float CHEST_LIMIT = 100.f;
 	float chestTimeLeft = CHEST_LIMIT;
+	bool showRetryWarning = false;
+	float retryWarnTimer = 0.0f;
 
 
 public:

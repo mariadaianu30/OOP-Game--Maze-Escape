@@ -160,6 +160,7 @@
     <ClInclude Include="loseRoom.h" />
     <ClInclude Include="menuRoom.h" />
     <ClInclude Include="nameMissing.h" />
+    <ClInclude Include="EnoughLives.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="obstacle.h" />
     <ClInclude Include="pickCharacter.h" />

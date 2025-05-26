@@ -1,7 +1,7 @@
 #include "GameManager.h"
 
 GameManager::GameManager() :myLab(),
-myMenu("Graphics/background.jpg", "Graphics/play_button.png", "Graphics/exit_button.png", "Graphics/font.ttf", "Graphics/inputbox.png"),
+myMenu("Graphics/background.jpg", "Graphics/play_button.png", "Graphics/exit_button.png", "Graphics/info.png", "Graphics/font.ttf", "Graphics/inputbox.png"),
 myDiamond(myLab.getRoomLayout()),
 myCoin(myLab.getRoomLayout()),
 myLoseRoom("Graphics/background.jpg", "Graphics/font.ttf"),
@@ -98,7 +98,11 @@ void GameManager::DrawGame()
 	case GameScreen::LOSE:
 		myLoseRoom.Draw();
 		DrawText(TextFormat("You have %d hearts left!", myPlayer->getLives()), 280, 350, 30, RAYWHITE);
-		DrawText(TextFormat("Coins:%d", myPlayer->getCoin()), 570, 60, 25, RAYWHITE);
+		DrawText(TextFormat("Coins:%d", myPlayer->getCoin()), 700, 60, 30, RAYWHITE);
+		if (showRetryWarning && retryWarnTimer > 0.0f) {
+			DrawText("Not enough lives to retry!", 230, 430, 35, RED);
+		}
+
 		for (int i = 0; i < myPlayer->getLives(); ++i)
 		{
 			Rectangle src = { 0, 0, static_cast<float>(heart.width), static_cast<float>(heart.height) };
@@ -148,11 +152,19 @@ void GameManager::HandleLose()
 	lastScreen = GameScreen::MAZE;
 	myLoseRoom.HandleHover();
 
-	if (myLoseRoom.HandleClickReplay() && !(myPlayer->lifeLost()))
+	if (myLoseRoom.HandleClickReplay())
 	{
 
-		ResetGame();
+		try {
+			if (myPlayer->lifeLost())
+				throw NotEnoughLives();
 
+			ResetGame();
+		}
+		catch (const NotEnoughLives& e) {
+			showRetryWarning = true;
+			retryWarnTimer = 3.0f;
+		}
 	}
 	if (myLoseRoom.HandleClickBuy() && myPlayer->getLives() <= 3 && myPlayer->getCoin() >= 40)
 	{
@@ -162,6 +174,13 @@ void GameManager::HandleLose()
 	if (myLoseRoom.HandleClickExit())
 	{
 		wantExit = true;
+	}
+	if (showRetryWarning) {
+		retryWarnTimer -= GetFrameTime();
+		if (retryWarnTimer <= 0.0f) {
+			retryWarnTimer = 0.0f;
+			showRetryWarning = false;
+		}
 	}
 
 }

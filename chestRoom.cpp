@@ -105,8 +105,8 @@ void ChestRoom::generateEnemies(int enemyCount)
 	std::vector<cell> free;
 	for (int row = 5; row < cellCount - 1; ++row)
 		for (int col = 5; col < cellCount - 1; ++col)
-			if (roomLayout[row][col] == 0)
-				free.push_back({ col, row });
+
+			free.push_back({ col, row });
 
 	std::shuffle(free.begin(), free.end(), rng);
 

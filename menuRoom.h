@@ -15,20 +15,22 @@ private:
 
 	Button playButton;
 	Button exitButton;
+	Button infoButton;
 	Rectangle inputBox;
 	int letters;
 	bool focusText;
 	bool exit;
 	bool startGame;
+	bool showInstructions;
 	char playerName[10];
 	Texture2D inputBackground;
+	Texture2D arrows;
+	Texture2D keys;
 
 
 
 public:
-	MenuRoom(const char* backgroundPath, const char* playButtonPath, const char* exitButtonPath, const char* fontPath, const char* inputPath);
-
-
+	MenuRoom(const char* backgroundPath, const char* playButtonPath, const char* exitButtonPath, const char* infoButtonPath, const char* fontPath, const char* inputPath);
 	~MenuRoom();
 	void Draw() override;
 	void HandleInput();
