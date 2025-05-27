@@ -36,6 +36,7 @@ The Treasure Room introduces enemies that can kill you with just one touch. Don�
 > **Collect the only diamond hidden in the chests** **AND** **reach exit in 100 seconds**.
 > Fail either… and the maze keeps you forever until you ran out of lives. 
 
+
 ---
 
 ##   Română
@@ -68,6 +69,64 @@ Camera comorilor introduce inamici care te pot omorî doar cu o atingere. Nu în
 > **Toate diamantele strânse** **ȘI** **ieșirea atinsă** **în 150 s**
 > **Colecteaza singurul diamant din cuferele generate si gaseste iesirea.**  
 > Ratezi oricare pas… și labirintul te revendică pentru totdeauna. 
+##  Cerințe implementare
+
+## ✅ Cerințe implementate
+
+### Organizare cod
+
+- [x] Separarea codului în fișiere `.h`/`.hpp` și `.cpp`
+- [x] Clase mici grupate în aceeași pereche header-sursă
+- [x] **Fără** `using namespace std`
+
+---
+
+###  Moștenire și polimorfism
+
+- [x] Mai multe **clase de bază**- exemplu: room, object;
+- [x] Minim **3 clase derivate**- din Room deriva ChestRoom, MenuRoom, etc, iar din Object deriva player-ul, dusmanii si obiectele cu ar fi Diamond, Coin, Obstacle.
+- [x] Ierarhie proprie, **nu derivată din clase STL**
+- [x] Funcții virtuale pure (ex: `update()`, `render()`)
+- [x] Apeluri prin pointer la clasa de bază
+- [x] Codul funcționează polimorfic, **fără downcast manual**
+
+---
+
+###  Clase cu pointeri către clase de bază
+
+- [x] Clase cu atribute `T*` sau `std::shared_ptr<T>`
+- [x] Apeluri corecte prin pointeri către interfața virtuală
+- [x] Evitat apelul prin interfață non-virtuală
+- [x] Implementat `operator=`, constructor de copiere și `swap`
+- [x] Folosit `std::unique_ptr` / `std::shared_ptr`
+- [x] Alocare dinamica pentru jucator. Folosire **new** si **delete**.
+
+---
+###  Functii de nivel inalt
+
+- [x] Generare de labirint unic si gestionarea crearii de obiecte.
+- [x] Miscarea inamicilor.
+- [x] Functiile utilizeaza STL: vector, string, etc.
+
+---
+
+###  Programare generică (Templates)
+
+- [x] Am implementat **cel puțin o funcție șablon** (`template function`).
+- [x] Am implementat **cel puțin o clasă șablon** (`template class`)- folosita in chest.h pentru introducerea de monede sau diamant.
+- [x] Am modificat o **clasă existentă izolată** și am transformat-o în **clasă șablon**.
+- [x] Am adăugat **cel puțin un atribut de tip `T`** în clasa șablon.
+- [x] Am adăugat **cel puțin o funcție membru dependentă de `T`**.
+- [x] Am adăugat **cel puțin o funcție liberă șablon**, definită și ca `friend`- functie care arata progresul cuferelor deschise.
+      
+---
+###  Design Patterns
+
+- [x] Proiectul utilizează **minimum 2 design patterns**:
+  - Singleton – pentru instantierea unica a meniului.
+  - Observer – pentru a stabili nivelul de performanta al juucatorului.
+- [x] Dacă este utilizat un pattern simplu (ex: `Singleton`), proiectul conține **3 pattern-uri**.
+- [x] Alegerea pattern-urilor este **justificată** și **adaptată** nevoilor jocului.
 
 ##  Bibliografie & Resurse
 
